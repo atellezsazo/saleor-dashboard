@@ -15,6 +15,7 @@ import GiftCardCreateDialogForm, {
 import { giftCardCreateDialogMessages as messages } from "./messages";
 import { useGiftCardCreateMutation } from "./mutations";
 import { GiftCardCreate } from "./types/GiftCardCreate";
+import { getGiftCardExpiryInputData } from "./utils";
 
 const GiftCardCreateDialog: React.FC<DialogActionHandlersProps> = ({
   closeDialog,
@@ -53,7 +54,11 @@ const GiftCardCreateDialog: React.FC<DialogActionHandlersProps> = ({
       balanceCurrency,
       note,
       tag,
-      selectedCustomer
+      selectedCustomer,
+      expiryType,
+      expiryDate,
+      expiryPeriodAmount,
+      expiryPeriodType
     } = formData;
 
     return {
@@ -64,7 +69,13 @@ const GiftCardCreateDialog: React.FC<DialogActionHandlersProps> = ({
         amount: balanceAmount,
         currency: balanceCurrency
       },
-      expirySettings: {}
+      expiryDate: getGiftCardExpiryInputData({
+        expiryType,
+        expiryDate,
+        expiryPeriodAmount,
+        expiryPeriodType
+      }),
+      isActive: true
     };
   };
 
